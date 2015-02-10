@@ -1,14 +1,14 @@
-(function () {
+(function (THREE) {
     'use strict';
 
     var renderer, scene, camera;
-    var geometry, material, mesh, light;
     var pivot;
 
     init();
     animate();
 
     function init() {
+        var geometry, material, mesh, light, textWidth, textDepth;
 
         renderer = new THREE.WebGLRenderer({
             alpha: true,
@@ -19,12 +19,10 @@
         scene = new THREE.Scene();
 
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 50000);
-        var width = window.innerWidth;
-        var height = window.innerHeight;
         camera.position.z = 800;
         camera.position.y = 50;
 
-        geometry = new THREE.TextGeometry("Lochlan McIntosh", {
+        geometry = new THREE.TextGeometry('"Hello, World!"', {
             bevelEnabled: true,
             bevelSize: 2,
             bevelThickness: 1.5,
@@ -39,14 +37,14 @@
         mesh = new THREE.Mesh(geometry, material);
 
         geometry.computeBoundingBox();
-        var textWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
-        var textDepth = geometry.boundingBox.max.z - geometry.boundingBox.min.z;
+        textWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+        textDepth = geometry.boundingBox.max.z - geometry.boundingBox.min.z;
 
-        mesh.position.set( -0.5 * textWidth, 0, -0.5 * textDepth );
+        mesh.position.set(-0.5 * textWidth, 0, -0.5 * textDepth);
 
         pivot = new THREE.Object3D();
-        pivot.add( mesh );
-        scene.add( pivot );
+        pivot.add(mesh);
+        scene.add(pivot);
 
         light = new THREE.PointLight(0xffffff);
         light.position.set(50, 50, 1000);
@@ -56,19 +54,16 @@
     }
 
     function animate() {
-
         requestAnimationFrame(animate);
-
         renderer.render(scene, camera);
-
     }
 
-    window.onscroll = function (event) {
+    window.onscroll = function () {
         // spinning out of control
         pivot.rotation.y = -0.001 * window.pageYOffset;
         pivot.rotation.x = 0.01 * window.pageYOffset;
         pivot.position.x = 2 * window.pageYOffset;
         pivot.position.z = -10 * window.pageYOffset;
-    }
+    };
 
-})();
+})(THREE);
