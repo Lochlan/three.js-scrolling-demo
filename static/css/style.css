@@ -1,6 +1,10 @@
-html, body {
+
+body {
     height: 100%;
     margin: 0;
-    overflow: hidden;
     width: 100%;
+}
+
+canvas {
+    display: block;
 }
