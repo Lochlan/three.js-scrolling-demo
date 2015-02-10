@@ -18,7 +18,7 @@
 
         scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 50000);
         var width = window.innerWidth;
         var height = window.innerHeight;
         camera.position.z = 800;
@@ -30,12 +30,12 @@
             bevelThickness: 1.5,
             curveSegments: 10,
             font: 'gentilis',
-            height: 5,
+            height: 10,
             size: 100,
             style: 'normal',
             weight: 'normal',
         });
-        material = new THREE.MeshLambertMaterial({ color: 0x111111 });
+        material = new THREE.MeshLambertMaterial({ color: 0xff00ff });
         mesh = new THREE.Mesh(geometry, material);
 
         geometry.computeBoundingBox();
@@ -52,17 +52,23 @@
         light.position.set(50, 50, 1000);
         scene.add(light);
 
-        document.body.appendChild(renderer.domElement);
+        document.querySelector('.canvas_container').appendChild(renderer.domElement);
     }
 
     function animate() {
 
         requestAnimationFrame(animate);
 
-        pivot.rotation.y += 0.02;
-
         renderer.render(scene, camera);
 
+    }
+
+    window.onscroll = function (event) {
+        // spinning out of control
+        pivot.rotation.y = -0.001 * window.pageYOffset;
+        pivot.rotation.x = 0.01 * window.pageYOffset;
+        pivot.position.x = 2 * window.pageYOffset;
+        pivot.position.z = -10 * window.pageYOffset;
     }
 
 })();

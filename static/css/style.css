@@ -2,9 +2,27 @@
 body {
     height: 100%;
     margin: 0;
+    overflow-x: hidden;
     width: 100%;
 }
 
 canvas {
     display: block;
+}
+
+.canvas_container {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.content_container {
+    margin-top: 100%;
+    padding: 40px;
+    position: relative;
+    text-align: justify;
+    text-justify: inter-word;
+    width: 50%;
 }
