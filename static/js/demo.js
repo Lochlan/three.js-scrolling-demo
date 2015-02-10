@@ -50,6 +50,8 @@
         light.position.set(50, 50, 1000);
         scene.add(light);
 
+        scrollCallback();
+
         document.querySelector('.canvas_container').appendChild(renderer.domElement);
     }
 
@@ -58,12 +60,14 @@
         renderer.render(scene, camera);
     }
 
-    window.onscroll = function () {
+    function scrollCallback() {
         // spinning out of control
         pivot.rotation.y = -0.001 * window.pageYOffset;
         pivot.rotation.x = 0.01 * window.pageYOffset;
         pivot.position.x = 2 * window.pageYOffset;
         pivot.position.z = -10 * window.pageYOffset;
     };
+
+    window.onscroll = scrollCallback;
 
 })(THREE);
